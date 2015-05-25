@@ -1,0 +1,11 @@
+div.tagsinput { border-bottom:1px solid #e5e5e5; background: #FFF; padding:7px 5px 0px; width:100%;max-width: 670px; height:100px; overflow-y: auto;}
+div.tagsinput span.tag { -moz-border-radius:2px; -webkit-border-radius:2px; display: block; float: left; padding: 1px 5px; text-decoration:none; background: #f5f5f5; color: #000000; margin-right: 5px; margin-bottom:5px;font-family: helvetica;font-size: 16px;padding: 6px 25px;font-family: 'proxima-nova-regular';}
+div.tagsinput span.tag a { font-weight: bold; color: #000000; text-decoration:none; font-size: 16px;  font-family: 'proxima-nova-regular';} 
+div.tagsinput input { width:180px!important; margin:0px; font-family: 'proxima-nova-regular',helvetica; font-size: 16px; border:none; padding:5px 8px; background: transparent; color: #000; outline:0px;  margin-right:5px; margin-bottom:5px; }
+div.tagsinput div { display:block; float: left; }
+input.add_tag {
+    color:red;
+}
+.tags_clear { clear: both; width: 100%; height: 0px; }
+.not_valid {background: #FBD8DB !important; color: #90111A !important;}
+#txtRecipient_tagsinput { border-bottom: solid 0px #e5e5e5; }

@@ -1,0 +1,159 @@
+/*! http://responsiveslides.com v1.54 by @viljamis */
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  height: 250px;
+  padding: 0;
+  margin: 0;
+  }
+
+@media (max-width: 480px) {
+  .rslides {
+    height: 150px;
+  }
+}
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  border: none;
+  box-shadow: none;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  border: none;
+  box-shadow: none;
+  }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border-style: none;
+  border: 0;
+  box-shadow: none;
+  visibility: hidden;
+  }
+
+.rslides p {
+  display: block;
+  color: white;
+  text-shadow: 1px 1px #222;
+  text-align: center;
+  position: absolute;
+  background-color: rgba(0,0,0, .2);
+  width: auto;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 5px;
+  visibility: hidden;
+  }
+
+.centered-btns_tabs,
+.transparent-btns_tabs,
+.large-btns_tabs {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.centered-btns_tabs li,
+.transparent-btns_tabs li,
+.large-btns_tabs li {
+    display: inline;
+    float: none;
+    _float: left;
+    *float: left;
+    margin-right: 5px;
+}
+
+.centered-btns_tabs a,
+.transparent-btns_tabs a,
+.large-btns_tabs a {
+    text-indent: -9999px;
+    overflow: hidden;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background: #fff;
+    background: rgba(0,0,0, .2);
+    display: inline-block;
+    _display: block;
+    *display: block;
+    width: 9px;
+    height: 9px;
+}
+
+.centered-btns_here a,
+.transparent-btns_here a,
+.large-btns_here a {
+    background: #222;
+    background: rgba(0,0,0, .8);
+}
+
+.centered-btns_nav {
+  z-index: 3;
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  top: 325px;
+  left: 0;
+  opacity: 0.2;
+  text-indent: -9999px;
+  overflow: hidden;
+  text-decoration: none;
+  height: 25px;
+  width: 35px;
+  background: transparent url("themes.gif") no-repeat left top;
+  margin-top: -45px;
+  }
+
+.centered-btns_nav:active {
+  opacity: .3;
+  }
+
+.centered-btns_nav.prev {
+  left: 25px;
+  background-position: left center;
+  right: auto;
+  height: 22px;
+  }
+
+.centered-btns_nav.next {
+  left: auto;
+  background-position: right center;
+  right: 25px;
+  height: 22px;
+  }
+
+.transparent-btns_nav {
+  z-index: 3;
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  top: 0;
+  left: 0;
+  display: block;
+  background: #fff; /* Fix for IE6-9 */
+  opacity: 0;
+  filter: alpha(opacity=1);
+  width: 48%;
+  text-indent: -9999px;
+  overflow: hidden;
+  height: 250px;
+  margin: 20px;
+  }
+
+.transparent-btns_nav.next {
+  left: auto;
+  right: 0;
+  }

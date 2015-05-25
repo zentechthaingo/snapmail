@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:48731/v1/apps/8502845iot",
+                data: { "status": 0, "app_url": "" },
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
+                success: function (data) {
+                    
+                },
+                error: function (xhrc, ajaxOptionsc, thrownErrorc) {  }
+            });
+            
+        });
+    </script>
+</head>
+<body>
+    hi
+</body>
+</html>
