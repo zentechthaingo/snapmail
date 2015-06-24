@@ -106,9 +106,9 @@ namespace BLL.Common
             get { return ConfigurationSettings.AppSettings["SmtpServerPort"]; }
         }
 
-        public static string TestEmail
+        public static string DebugEmail
         {
-            get { return ConfigurationSettings.AppSettings["TestEmail"]; }
+            get { return ConfigurationSettings.AppSettings["DebugEmail"]; }
         }
 
         public static string EmailSubject
@@ -149,6 +149,16 @@ namespace BLL.Common
         public static string TempImagePath
         {
             get { return ConfigurationSettings.AppSettings["TempImagePath"]; }
+        }
+
+        public static int RetryInterval
+        {
+            get { return int.Parse(ConfigurationSettings.AppSettings["RetryInterval"]); }
+        }
+
+        public static int TryCount
+        {
+            get { return int.Parse(ConfigurationSettings.AppSettings["TryCount"]); }
         }
     }
 }

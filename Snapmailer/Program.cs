@@ -17,8 +17,6 @@ namespace Snapmailer
 {
     class Program
     {
-        static int RETRY_INTERVAL = int.Parse(ConfigurationSettings.AppSettings["RetryInterval"]);
-        static int TRY_COUNT = int.Parse(ConfigurationSettings.AppSettings["TryCount"]);
         static SnapmailRowData data = new SnapmailRowData();
         static Evercam evercam = new Evercam();
 
@@ -54,6 +52,7 @@ namespace Snapmailer
                                 bool anyErrors = false;
                                 string images = "";
                                 string errors = "<ul>";
+                                string debugs = "<ul>";
                                 string[] cc = data.Cameras.Split(',', ' ');
                                 foreach (string c in cc)
                                 {
@@ -62,12 +61,13 @@ namespace Snapmailer
                                     Camera camera = new Camera();
                                     try
                                     {
-                                        camera = evercam.GetCamera(c, null);
+                                        camera = evercam.GetCamera(c);
                                     }
                                     catch (Exception x)
                                     {
                                         anyErrors = true;
-                                        errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/v1/cameras/" + c + "'>" + c + "</a> because camera could not be found</i></li>";
+                                        errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/v1/cameras/" + c + "'>" + c + "</a> because camera details could not be found</i></li>";
+                                        debugs += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/v1/cameras/" + c + "'>" + c + "</a> because camera details could not be found</i></li>";
                                         Utils.FileLog("Error " + c + ": " + x.ToString(), data.RowKey);
                                         continue;
                                     }
@@ -77,7 +77,7 @@ namespace Snapmailer
                                         string msg = "";
                                         bool doLatest = false;
                                         byte[] image = null;
-                                        for (int i = 1; i <= TRY_COUNT; i++)
+                                        for (int i = 1; i <= Settings.TryCount; i++)
                                         {
                                             try
                                             {
@@ -88,16 +88,15 @@ namespace Snapmailer
                                             }
                                             catch (Exception x)
                                             {
+                                                anyErrors = true;
                                                 Utils.FileLog("Error (try#" + i + "): " + data.RowKey + ": " + x.ToString(), data.RowKey);
                                                 if (x.Message.ToLower().Contains("offline"))
                                                     msg = " because camera was found offline";
-                                                else if (x.Message.ToLower().Contains("unauthorized"))
-                                                    msg = " because Snapmail is not authorized to take snapshot from camera";
                                                 else
                                                     msg = " [Error: " + x.Message + "]";
                                                 
-                                                if (i < TRY_COUNT)
-                                                    Thread.Sleep(RETRY_INTERVAL);    // 15 seconds
+                                                if (i < Settings.TryCount)
+                                                    Thread.Sleep(Settings.RetryInterval);    // 15 seconds
                                             }
                                         }
                                         if (image != null)
@@ -114,13 +113,16 @@ namespace Snapmailer
                                                 }
                                                 else
                                                 {
-                                                    errors += "<li> <i>Could not retrieve valid image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                                    errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                                    debugs += "<li> <i>Could not retrieve valid image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
                                                     Utils.FileLog("Image could not be not saved from Camera " + c, data.RowKey);
                                                     doLatest = true;
                                                 }
                                             }
                                             catch (Exception x)
                                             {
+                                                anyErrors = true;
+                                                errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
                                                 errors += "<li> <i>Could not retrieve valid image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a></i> [Error: " + x.Message + "]";
                                                 Utils.FileLog("Image could not be not saved from Camera " + c, data.RowKey);
                                                 doLatest = true;
@@ -128,7 +130,9 @@ namespace Snapmailer
                                         }
                                         else
                                         {
-                                            errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a>" + msg + "</i>";
+                                            anyErrors = true;
+                                            errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                            debugs += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/cameras/" + c + "'>" + c + "</a>" + msg + "</i>";
                                             Utils.FileLog("Image not retrieved from Camera " + c, data.RowKey);
                                             doLatest = true;
                                         }
@@ -145,12 +149,15 @@ namespace Snapmailer
                                                     attachments.Add(temppath);
                                                     temppath = WebUtility.UrlDecode(Path.Combine(Settings.TempImagePath, c + timestamp + ".jpg")).Replace(@"/", @"\\");
                                                     temppath = temppath.Replace(Settings.TempImagePath.Replace(@"/", @"\\"), Settings.ServerUrl + @"images/");
-                                                    errors += "<br /><i>Here is the last image we received from this camera @ " + last.ToString() + ":</i><br /><img src='" + temppath + "' width='50%' /></li>";
+                                                    errors += "<br /><i>Here is the last image we received from this camera</i><br /><img src='" + temppath + "' width='50%' /></li>";
+                                                    debugs += "<br /><i>Here is the last image we received from this camera @ " + last.ToString() + ":</i><br /><img src='" + temppath + "' width='50%' /></li>";
                                                 }
                                             }
                                             catch (Exception x)
                                             {
+                                                anyErrors = true;
                                                 errors += "</li>";
+                                                debugs += "</li>";
                                                 Utils.FileLog("Latest image could not be retrieved from Camera " + c, data.RowKey);
                                             }
                                         }
@@ -158,17 +165,27 @@ namespace Snapmailer
                                     else
                                     {
                                         anyErrors = true;
-                                        errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/v1/cameras/" + c + "'>" + c + "</a> because camera could not be found</i></li>";
+                                        errors += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/v1/cameras/" + c + "'>" + c + "</a> because camera details could not be found</i></li>";
+                                        debugs += "<li> <i>Could not retrieve live image from <a target='_blank' href='https:////dashboard.evercam.io/v1/cameras/" + c + "'>" + c + "</a> because camera details could not be found</i></li>";
                                         Utils.FileLog("Camera not found " + c, data.RowKey);
                                     }
                                 }
                                 errors += "</ul>";
+                                debugs += "</ul>";
                                 string message = "";
-                                if (anyImages)
+                                string debug = "";
+                                if (anyImages) {
                                     message = data.Message.Replace("{br}", "<br />").Replace("{snapshots}", images + (!anyErrors ? "" : "<br />But...<br />" + errors)).Replace("{unsubscribe}", "<center style='font-size:11px'>If you want to change your Snapmail settings, <a target='_blank' href='" + Settings.ServerUrl + "?user=" + data.UserId + "'>click here</a>.<br />If you would prefer not to receive future emails for this Scheduled SnapMail @ " + data.NotifyTime + ", you may <a target='_blank' href='" + Settings.ServerUrl + "Unsubscribe.html?id=" + data.RowKey + "&email={email}'>unsubscribe here</a>.</center>");
+                                    debug = data.Message.Replace("{br}", "<br />").Replace("{snapshots}", images + (!anyErrors ? "" : "<br />But...<br />" + debugs)).Replace("{unsubscribe}", "<center style='font-size:11px'>If you want to change your Snapmail settings, <a target='_blank' href='" + Settings.ServerUrl + "?user=" + data.UserId + "'>click here</a>.<br />If you would prefer not to receive future emails for this Scheduled SnapMail @ " + data.NotifyTime + ", you may <a target='_blank' href='" + Settings.ServerUrl + "Unsubscribe.html?id=" + data.RowKey + "&email={email}'>unsubscribe here</a>.</center>");
+                                }
                                 else
+                                {
                                     message = data.Message.Replace("{br}", "<br />").Replace("Here's the snapshot(s) from your cameras.", "").Replace("{snapshots}", (!anyErrors ? "" : errors)).Replace("{unsubscribe}", "<center style='font-size:11px'>If you want to change your Snapmail settings, <a target='_blank' href='" + Settings.ServerUrl + "?user=" + data.UserId + "'>click here</a>.<br />If you would prefer not to receive future emails for this Scheduled SnapMail @ " + data.NotifyTime + ", you may <a target='_blank' href='" + Settings.ServerUrl + "Unsubscribe.html?id=" + data.RowKey + "&email={email}'>unsubscribe here</a>.</center>");
+                                    debug = data.Message.Replace("{br}", "<br />").Replace("Here's the snapshot(s) from your cameras.", "").Replace("{snapshots}", (!anyErrors ? "" : debugs)).Replace("{unsubscribe}", "<center style='font-size:11px'>If you want to change your Snapmail settings, <a target='_blank' href='" + Settings.ServerUrl + "?user=" + data.UserId + "'>click here</a>.<br />If you would prefer not to receive future emails for this Scheduled SnapMail @ " + data.NotifyTime + ", you may <a target='_blank' href='" + Settings.ServerUrl + "Unsubscribe.html?id=" + data.RowKey + "&email={email}'>unsubscribe here</a>.</center>");
+                                }
                                 Utils.SendMail(data.Subject.Replace("{notify_time}", data.NotifyTime), message, data.Recipients, attachments);
+                                if (!string.IsNullOrEmpty(Settings.DebugEmail) && anyErrors)
+                                    Utils.SendMail("[DEBUG] " + data.Subject.Replace("{notify_time}", data.NotifyTime), debug, Settings.DebugEmail, attachments);
                                 SnapmailDao.UpdateEmail(data.RowKey, message.Replace("{email}", data.Recipients), DateTime.UtcNow);
 
                                 Utils.FileLog("SendMail: " + message, data.RowKey);

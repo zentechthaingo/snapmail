@@ -629,7 +629,10 @@ var Index = function () {
                         var css = 'onlinec';
                         if (!cams.cameras[i].is_online)
                             css = 'offlinec';
-                        $("#ddlCameras").append('<option class="' + css + '" data-val="' + cams.cameras[i].thumbnail_url + '" value="' + cams.cameras[i].id + '" >' + cams.cameras[i].name + '</option>');
+                        if (cams.cameras[i].rights.indexOf("snapshot") > -1)
+                            $("#ddlCameras").append('<option class="' + css + '" data-val="' + cams.cameras[i].thumbnail_url + '" value="' + cams.cameras[i].id + '" >' + cams.cameras[i].name + '</option>');
+                        else
+                            console.log("Insufficient rights: " + cams.cameras[i].id);
                     }
                 } else
                     getSnapmails();

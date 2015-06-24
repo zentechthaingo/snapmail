@@ -41,6 +41,7 @@ local.properties
 *.txt
 *.suo
 *.user
+*.config
 *.sln.docstates
 
 # Build results
@@ -218,3 +219,11 @@ pip-log.txt
 obj
 obj
 obj
+/*.config
+/SnapMailWeb/*.config
+/SnapMailWeb/*.config
+/SnapMailService/*.config
+/Snapmailer/*.config
+/SnapMailApi/*.config
+/SnapMailApi/*.config
+/SnapMailApi/*.config
