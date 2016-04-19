@@ -449,33 +449,12 @@ var Index = function () {
   };
 
   var loadCameraSnaps = function (key, cameras) {
-    $.ajax({
-      type: "GET",
-      crossDomain: true,
-      url: appApiUrl + "/" + key + "/snapshots",
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      success: function (res) {
-        if (res == null || res == undefined) {
-          $("#snaps-" + key).attr("class", "snapstack-error");
-          console.log("Error in Snapmail#" + key);
-        } else {
-          $("#snaps-" + key).attr("class", "snapstack");
-          for (d = 0; d < cameras.split(',').length ; d++) {
-            if (res[d].data && res[d].data.length > 0)
-              $("#stackimage-" + key + "-" + cameras.split(',')[d]).attr('src', res[d].data);
-            else
-              $("#stackimage-" + key + "-" + cameras.split(',')[d]).attr('src', 'assets/img/cams.jpg');
-            $("#stackimage-" + key + "-" + cameras.split(',')[d]).css('visibility', 'visible');
-            $("#stackimage-" + key + "-" + cameras.split(',')[d]).next().css('visibility', 'visible');
-          }
-        }
-      },
-      error: function (xhrc, ajaxOptionsc, thrownErrorc) {
-        $("#snaps-" + key).attr("class", "snapstack-error");
-        console.log("Error in Snapmail#" + key + " -> " + thrownErrorc.message);
-      }
-    });
+    for (var d = 0; d < cameras.split(',').length ; d++) {
+      var thumbnail_url = "https://media.evercam.io/v1/cameras/" + cameras.split(',')[d] + "/thumbnail?api_id=" + localStorage.getItem("api_id") + "&api_key=" + localStorage.getItem("api_key");
+      $("#stackimage-" + key + "-" + cameras.split(',')[d]).attr('src', thumbnail_url);
+      $("#stackimage-" + key + "-" + cameras.split(',')[d]).css('visibility', 'visible');
+      $("#stackimage-" + key + "-" + cameras.split(',')[d]).next().css('visibility', 'visible');
+    }
   }
 
   $(".app-img-radious-retry").live("click", function () {

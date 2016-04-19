@@ -26,7 +26,7 @@ namespace Snapmailer
             
             //// for testing
             //args = new string[1];
-            //args[0] = "ea3b19c2-f837-4013-a7e8-ac4572d63309";
+            //args[0] = "81f3e1dc-85b5-4ca3-bd4a-4636f8e66602";
             //data = SnapmailDao.Get(args[0]);
 
             if (!string.IsNullOrEmpty(args[0]))
@@ -36,6 +36,9 @@ namespace Snapmailer
                     if (!string.IsNullOrEmpty(data.AccessToken))
                     {
                         evercam = new Evercam(data.AccessToken);
+                        string[] cred = data.AccessToken.Split(':');
+                        if (cred.Length >= 2)
+                            evercam = new Evercam(cred[0], cred[1]);
                         int hh = int.Parse(data.NotifyTime.Substring(0, 2));
                         int mm = int.Parse(data.NotifyTime.Substring(3, 2));
                         DateTime scheduled = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, hh, mm, 0);
@@ -68,7 +71,7 @@ namespace Snapmailer
                                     {
                                         try
                                         {
-                                            if (camera == null)
+                                            if (camera == null || string.IsNullOrEmpty(camera.ID))
                                                 camera = evercam.GetCamera(c);
 
                                             // store and returns live snapshot on evercam

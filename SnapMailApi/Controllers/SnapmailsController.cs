@@ -39,9 +39,12 @@ namespace OneButtonApi.Controllers
             SnapmailRowData snapmail = SnapmailDao.Get(key);
             Evercam.SANDBOX = Settings.EvercamSandboxMode;
             Evercam evercam = new Evercam(snapmail.AccessToken);
+            string[] cred = snapmail.AccessToken.Split(':');
+            if (cred.Length >= 2)
+                evercam = new Evercam(cred[0], cred[1]);
             List<Snapshot> snaps = new List<Snapshot>();
             string[] camids = snapmail.Cameras.Split(',');
-            List<Camera> cams = evercam.GetCameras(null, snapmail.UserId, true, true);
+            List<Camera> cams = evercam.GetCameras(null, snapmail.UserId, true);
             foreach (Camera c in cams)
             {
                 var results = Array.FindAll(camids, s => s.Equals(c.ID));

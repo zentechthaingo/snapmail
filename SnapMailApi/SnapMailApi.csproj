@@ -46,16 +46,16 @@
     </Reference>
     <Reference Include="DocsByReflection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\DocsByReflection.dll</HintPath>
+      <HintPath>..\..\..\dotnet\DocsByReflection.dll</HintPath>
     </Reference>
     <Reference Include="EvercamV2, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\EvercamV2.dll</HintPath>
+      <HintPath>..\..\evercam.net\EvercamV2\bin\Debug\EvercamV2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Web.Services3.dll</HintPath>
+      <HintPath>..\..\..\dotnet\Microsoft.Web.Services3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\dotnet\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Quartz, Version=2.2.4.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\RestSharp.dll</HintPath>
+      <HintPath>..\..\..\dotnet\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -86,7 +86,7 @@
     <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\System.Web.Cors.dll</HintPath>
+      <HintPath>..\..\..\dotnet\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -101,7 +101,7 @@
     </Reference>
     <Reference Include="System.Web.Http.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\System.Web.Http.Cors.dll</HintPath>
+      <HintPath>..\..\..\dotnet\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
