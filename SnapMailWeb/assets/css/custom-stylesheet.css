@@ -1276,7 +1276,7 @@ form .unit label {
   padding-left: 15px;
 }
 
-@media (max-width: 1200px) { 
+@media (max-width: 1200px) {
 
   .margin-left-25 {
     margin-left: 15%;
@@ -1285,7 +1285,7 @@ form .unit label {
 
 }
 
-@media (max-width: 991px) { 
+@media (max-width: 991px) {
 
   .margin-left-25 {
     margin-left: 0%;
@@ -1294,7 +1294,7 @@ form .unit label {
 
 }
 
-@media (max-width: 380px) { 
+@media (max-width: 380px) {
 
   .padding-left-15 {
     padding-left: 0%;
