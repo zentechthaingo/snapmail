@@ -54,8 +54,10 @@ var Login = function () {
       if (!createUserState) {
         createUserState = true;
         $("#divRegister").slideDown(900, function() {
-          $("#spnCamcel").fadeIn();
+          $(".cancel_register").fadeIn();
+          $("#register-image").removeClass("padding-left-15");
         });
+        $("#sign-in").slideUp(900)
       } else {
         if ($("#first_name").val() == "" && $("#last_name").val() == "" && $("#user_name").val() == "" && $("#user_email").val() == "" && $("#password").val() == "" && $("#country").val() == "") {
           $('.alert-error').slideDown();
@@ -134,6 +136,7 @@ var Login = function () {
               $("#divRegister").slideUp(900, function() {
                 $("#divSuccess").html('Thank you for registering, <b>' + res.users[0].username + '</b>. An email has been dispatched to <b>' + res.users[0].email + '</b> with details on how to activate your account.');
                 $("#divSuccess").fadeIn();
+                $("#register-image").addClass("padding-left-15");
                 clearForm();
               });
             },
@@ -149,8 +152,10 @@ var Login = function () {
 
     $(".cancel_register").bind("click", function() {
       createUserState = false;
-      $("#spnCamcel").fadeOut();
+      $("#sign-in").slideDown(900)
+      $(".cancel_register").fadeOut();
       $("#divRegister").slideUp(900, function() {
+        $("#register-image").addClass("padding-left-15");
         clearForm();
       });
     });
