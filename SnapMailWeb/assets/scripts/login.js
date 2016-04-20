@@ -1,5 +1,4 @@
 var Login = function () {
-    
   var createUserState = false;
   var exitRegister = false;
   var EvercamApi = "https://api.evercam.io/v1";
@@ -44,6 +43,7 @@ var Login = function () {
     $("#country").val("");
     $('.alert-error', $('.login-form')).slideUp();
     $('#LoaderRegister').hide();
+    NProgress.done();
     $(".font-size16").removeClass("font-color-red");
     $('.alert-error').slideUp();
   };
@@ -119,6 +119,7 @@ var Login = function () {
             left: ($('#divRegister').width() / 2) - 22,
           });
           $('#LoaderRegister').show();
+          NProgress.start();
 
           $.ajax({
             type: 'POST',
@@ -144,6 +145,7 @@ var Login = function () {
               $('.alert-error').slideDown();
               $('.alert-error span').html(xhr.responseJSON.message + ' ' + xhr.responseJSON.context);
               $('#LoaderRegister').hide();
+              NProgress.done();
             }
           });
         }
@@ -163,15 +165,18 @@ var Login = function () {
 
   var loginButton = function () {
     $("#loginRequest1").on("click", function () {
+      NProgress.start();
       login();
     });
   }
 
   var login = function () {
+    NProgress.start();
     var username = $("#txtUsername").val();
     var password = $("#txtPassword").val();
     if (username == "" || password == "") {
       alert_notification(".bb-alert", "Invalid login/password combination");
+      NProgress.done();
       return;
     }
     $.ajax({
@@ -183,9 +188,11 @@ var Login = function () {
       ContentType: 'application/json; charset=utf-8',
       success: function (response) {
         get_user(username, response.api_id, response.api_key)
+        NProgress.done();
       },
       error: function (xhr, textStatus) {
         alert_notification(".bb-alert", xhr.responseJSON.message);
+        NProgress.done();
       }
     });
   }
@@ -203,9 +210,11 @@ var Login = function () {
         localStorage.setItem("api_key", api_key);
         localStorage.setItem("user", JSON.stringify(response.users[0]));
         window.location = 'index.html';
+        NProgress.done();
       },
       error: function (xhr, textStatus) {
         alert_notification(".bb-alert", xhr.responseJSON.message);
+        NProgress.done();
       }
     });
   }
@@ -231,8 +240,9 @@ var Login = function () {
       handleRegisterUser();
       loginButton();
       onKeyEnter();
+      $(document).ready(function(){
+        NProgress.done();
+      });
     }
-
   };
-
 }();

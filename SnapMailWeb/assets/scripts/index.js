@@ -44,6 +44,16 @@ var Index = function () {
       localStorage.removeItem("user");
       localStorage.removeItem("EvercamCameras");
       window.location = 'login.html';
+      NProgress.start();
+    });
+
+    $("#btnLogout").bind("click", function() {
+      localStorage.removeItem("api_id");
+      localStorage.removeItem("api_key");
+      localStorage.removeItem("user");
+      localStorage.removeItem("EvercamCameras");
+      window.location = 'login.html';
+      NProgress.start();
     });
 
     var isRTL = false;
@@ -835,6 +845,9 @@ var Index = function () {
         if (event.keyCode == 27) {
           clearForm();
         }
+      });
+      $(document).ready(function(){
+        NProgress.done();
       });
     }
   };

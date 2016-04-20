@@ -48,7 +48,6 @@
 
   <link rel="import" href="assets/components/core-label/core-label.html">
   <!-- END GLOBAL MANDATORY STYLES -->
-
   <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <!-- END HEAD -->
@@ -64,6 +63,7 @@
             <img class="logo" src="assets/img/snapmail.svg" />
             <h1>SnapMail</h1>
           </div>
+          <button id="btnLogout" class="btn btn-sign-out" data-toggle="tooltip" title="Sign out" style="display: none;"><i class="icon-signout"></i></button>
           <div class="nav-collapse collapse">
             <ul class="nav" id="topnavigation">
               <li id="liUsername" class="hide">
@@ -353,6 +353,14 @@
 </div>
 
     <!-- END COPYRIGHT -->
+    <!-- ADD NPROGRESS BAR -->
+    <link href="assets/css/nprogress.css" rel="stylesheet" type="text/css" />
+    <script src='assets/scripts/nprogress.js'></script>
+    <script type="text/javascript">
+      NProgress.start();
+      NProgress.done();
+    </script>
+    <!-- END nPROGRESS BAR -->
     <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
     <!-- BEGIN CORE PLUGINS -->
     <script src="assets/components/webcomponentsjs/webcomponents.js"></script>

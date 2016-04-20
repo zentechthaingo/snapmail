@@ -1301,3 +1301,12 @@ form .unit label {
   }
 
 }
+
+@media (max-width: 980px) {
+
+  .btn-sign-out {
+    display: block !important;
+    float: right;
+  }
+
+}
