@@ -827,11 +827,6 @@ var Index = function () {
     } else {
       $("#uniform-chkAllDay span").removeClass("checked");
       $("#chkAllDay").attr("checked", false);
-      /*
-            if (aWDays == "Mon,Tue,Wed,Thu,Fri,Sat,Sun") {
-                $("#uniform-chkFullWeek span").addClass("checked");
-                $("#chkFullWeek").attr("checked", true);
-            }*/
     }
   }
 
@@ -846,9 +841,7 @@ var Index = function () {
           clearForm();
         }
       });
-      $(document).ready(function(){
-        NProgress.done();
-      });
+      NProgress.done();
     }
   };
 }();
