@@ -247,13 +247,10 @@ b {
 }
 .login-box {
   margin-top: 30px;
-  margin-bottom: 90px;
 }
-#sign-in {
-  margin-top: 90px;
-}
+
 #sign-in img, .create-account img {
-  max-width: 300px;
+  max-width: 250px;
   border-radius: 3px;
 } 
 #sign-in img:hover, .create-account img:hover  {
@@ -317,7 +314,7 @@ b {
 }
 
 #headerwrap a {
-  color:#ffffff;
+  color:#68a2d5;
 }
 #headerwrap a:hover {
   color:#68a2d5;
@@ -856,7 +853,7 @@ input, .card {
 }
 input {
   display:block;
-  width:26rem;
+  width:97%;
   margin:4.5rem 1rem 2rem;
   border:0;
   font-size:1.2rem;
@@ -1227,4 +1224,89 @@ h2 {
   max-width: 340px;
   text-align: center;
   padding: 10px 15px;
+}
+
+form .unit label {
+  color: black;
+  font-size: 14px;
+}
+
+.margin-top-90 {
+  margin-top: 90px;
+}
+
+.background-color-white {
+  background-color: #ECECEC;
+}
+
+.margin-left-25 {
+  margin-left: 25%;
+}
+
+.singin-text {
+  color: black;
+}
+
+.margin-bottom30 {
+  margin-bottom: 30px;
+}
+
+.text-center {
+    text-align: center;
+    font-size: 18px;
+}
+
+.padding-40 {
+  padding: 40px;
+}
+
+.cancel_register {
+  display: none;
+}
+
+.or-span {
+  color: black;
+}
+
+.margin-botom-60 {
+  margin-bottom: 60px;
+}
+
+.padding-left-15 {
+  padding-left: 15px;
+}
+
+@media (max-width: 1200px) {
+
+  .margin-left-25 {
+    margin-left: 15%;
+    width: 400px;
+  }
+
+}
+
+@media (max-width: 991px) {
+
+  .margin-left-25 {
+    margin-left: 0%;
+    width: auto;
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .padding-left-15 {
+    padding-left: 0%;
+  }
+
+}
+
+@media (max-width: 980px) {
+
+  .btn-sign-out {
+    display: block !important;
+    float: right;
+  }
+
 }

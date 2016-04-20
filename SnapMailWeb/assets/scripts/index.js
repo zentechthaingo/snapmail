@@ -44,6 +44,16 @@ var Index = function () {
       localStorage.removeItem("user");
       localStorage.removeItem("EvercamCameras");
       window.location = 'login.html';
+      NProgress.start();
+    });
+
+    $("#btnLogout").bind("click", function() {
+      localStorage.removeItem("api_id");
+      localStorage.removeItem("api_key");
+      localStorage.removeItem("user");
+      localStorage.removeItem("EvercamCameras");
+      window.location = 'login.html';
+      NProgress.start();
     });
 
     var isRTL = false;
@@ -817,11 +827,6 @@ var Index = function () {
     } else {
       $("#uniform-chkAllDay span").removeClass("checked");
       $("#chkAllDay").attr("checked", false);
-      /*
-            if (aWDays == "Mon,Tue,Wed,Thu,Fri,Sat,Sun") {
-                $("#uniform-chkFullWeek span").addClass("checked");
-                $("#chkFullWeek").attr("checked", true);
-            }*/
     }
   }
 
@@ -836,6 +841,7 @@ var Index = function () {
           clearForm();
         }
       });
+      NProgress.done();
     }
   };
 }();
