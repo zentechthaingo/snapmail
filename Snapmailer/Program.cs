@@ -27,7 +27,6 @@ namespace Snapmailer
             //// for testing
             //args = new string[1];
             //args[0] = "81f3e1dc-85b5-4ca3-bd4a-4636f8e66602";
-            //data = SnapmailDao.Get(args[0]);
 
             if (!string.IsNullOrEmpty(args[0]))
             {
@@ -92,7 +91,7 @@ namespace Snapmailer
                                             }
                                             else
                                             {
-                                                debugs += "<li> <i>Image could not be saved from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                                debugs += "<li> <i>Image could not be saved from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>";
                                                 Utils.FileLog("Image could not be saved from Camera " + c, data.RowKey);
                                                 anyDebugs = true;
                                             }
@@ -100,7 +99,7 @@ namespace Snapmailer
                                         catch (Exception x)
                                         {
                                             anyDebugs = true;
-                                            debugs += "<li> <i>Image could not be saved from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>. [Error: " + x.Message + "]";
+                                            debugs += "<li> <i>Image could not be saved from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>. [Error: " + x.Message + "]";
                                             Utils.FileLog("Error (try#" + i + "): " + data.RowKey + ": " + x.ToString(), data.RowKey);
 
                                             if (x.Message.Contains("offline"))
@@ -135,8 +134,8 @@ namespace Snapmailer
                                                 }
                                                 else
                                                 {
-                                                    errors += "<li> <i>Could not retrieve an image from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
-                                                    debugs += "<li> <i>Latest image could not be retrieved from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                                    errors += "<li> <i>Could not retrieve an image from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>";
+                                                    debugs += "<li> <i>Latest image could not be retrieved from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>";
                                                     Utils.FileLog("Latest image could not be saved from Camera " + c, data.RowKey);
 
                                                     anyErrors = anyDebugs = true;
@@ -148,10 +147,10 @@ namespace Snapmailer
                                                 temppath = WebUtility.UrlDecode(Path.Combine(Settings.TempImagePath, c + timestamp + ".jpg")).Replace(@"/", @"\\");
                                                 temppath = temppath.Replace(Settings.TempImagePath.Replace(@"/", @"\\"), Settings.ServerUrl + @"images/");
 
-                                                errors += "<li> <i>Could not retrieve an image from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                                errors += "<li> <i>Could not retrieve an image from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>";
                                                 errors += "<br /><i>Here is the last image we received from this camera</i><br /><img src='" + temppath + "' width='50%' /></li>";
 
-                                                debugs += "<li> <i>Latest image could not be retrieved from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
+                                                debugs += "<li> <i>Latest image could not be retrieved from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>";
                                                 debugs += "<br /><i>Here is the last image we received from this camera @ " + last.ToString() + ":</i><br /><img src='" + temppath + "' width='50%' /></li>";
                                                 Utils.FileLog("Latest image is too old from Camera " + c, data.RowKey);
 
@@ -160,8 +159,8 @@ namespace Snapmailer
                                         }
                                         catch (Exception x)
                                         {
-                                            errors += "<li> <i>Could not retrieve an image from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a></i>";
-                                            debugs += "<li> <i>Latest image could not be retrieved from <a target='_blank' href='https:////dash.evercam.io/cameras/" + c + "'>" + c + "</a>. [Error: " + x.Message + "]</i>";
+                                            errors += "<li> <i>Could not retrieve an image from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a></i>";
+                                            debugs += "<li> <i>Latest image could not be retrieved from <a target='_blank' href='https:////dash.evercam.io/v1/cameras/" + c + "'>" + c + "</a>. [Error: " + x.Message + "]</i>";
                                             Utils.FileLog("Latest image could not be retrieved from Camera " + c, data.RowKey);
                                             anyErrors = anyDebugs = true;
                                         }
